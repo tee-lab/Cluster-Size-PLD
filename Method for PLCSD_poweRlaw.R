@@ -4,9 +4,14 @@ library(spatialwarnings)
 
 r <- raster('F:/Ashish/1.Part1prjct/Binary map/Senanga20_binary40.tif')
 ##summary(r)
+
+########Use a CSV file to get the data
+r<- read.csv("file path")
+
 ########COnvert the raster into a matrix
 s <- as.matrix(r)
 ##summary(s)
+
 ########Convert the matrix into a logical matrix
 t<-matrix(as.logical(s), dim(s))
 ##summary(t)
