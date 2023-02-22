@@ -6,11 +6,11 @@ library(ggplot2)
 ########Select the raster
 r <- raster('H:/1.Part1prjct/Binary map/Senanga12_binary30.tif')
 ##summary(r)
+########Use a CSV file to get the data
+r<- read.csv("file path")
 ########COnvert the raster into a matrix
 s <- as.matrix(r)
 ##summary(s)
-########Use a CSV file to get the matrix
-s<- read.csv("file path")
 ########Convert the matrix into a logical matrix
 t<-matrix(as.logical(s), dim(s))
 ##summary(t)
