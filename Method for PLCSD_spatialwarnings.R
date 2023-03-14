@@ -8,7 +8,7 @@ r <- raster('F:/Ashish/1.Part1prjct/Binary map/Senanga14_binary438.tif')
 ##summary(r)
 
 ########     Use a CSV file to get the data
-r<- read.csv("file path")
+#r<- read.csv("file path")
 
 ########      Convert the raster into a matrix
 s <- as.matrix(r)
