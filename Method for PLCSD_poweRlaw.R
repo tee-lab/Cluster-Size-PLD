@@ -8,7 +8,7 @@ r <- raster('F:/Ashish/1.Part1prjct/Binary map/Senanga20_binary40.tif')
 ########Use a CSV file to get the data
 r<- read.csv("file path")
 
-########COnvert the raster into a matrix
+########Convert the raster into a matrix
 s <- as.matrix(r)
 ##summary(s)
 
@@ -36,9 +36,8 @@ if(cdist.indi$percolation[1] == TRUE){
 ########Select the list of cluster size
 cd=conpl$new(csize.list)
 ##summary(cd)
-########estimate parameters
-par_cd<-estimate_pars(cd)
-xmin_cd<-estimate_xmin(cd)
+######## estimate parameters
+xmin_cd<-estimate_xmin(cd, xmax=1e+06)    ##Gives both xmin and the power law exponent. Can replace with estimate_xmin(cd ,xmax=1e+07), but it is usualy a percolating cluster so can be ignored
 
 ########Set the parameters
 cd$setXmin(xmin_cd)
@@ -50,5 +49,5 @@ plot(cd, xlim=c(1,1000000), ylim=c(0.000001,1),main="Name",sub="yr", xlab=x.name
 lnpl<-lines(cd,col=3)
 
 ########Bootstrapping
-bspl<-bootstrap_p(cd)
+bspl<-bootstrap_p(cd, xmax=1e+06)  ##Takes quite some time. Can replace with bootstrap_p(cd, xmax=1e+07) to consider those, but are usually percolating cluster so can be ignored)
 plot(bspl)
