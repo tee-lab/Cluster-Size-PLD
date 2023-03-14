@@ -6,7 +6,7 @@ r <- raster('F:/Ashish/1.Part1prjct/Binary map/Senanga20_binary40.tif')
 ##summary(r)
 
 ########Use a CSV file to get the data
-r<- read.csv("file path")
+# r<- read.csv("file path")
 
 ########Convert the raster into a matrix
 s <- as.matrix(r)
@@ -18,7 +18,7 @@ t<-matrix(as.logical(s), dim(s))
 ########Produce a list of cluster sizes
 csize.list<-patchsizes(t)
 
-########      Find the xmin
+########      Find the xmin of fitted power law using spatialwarnings
 c_xmin<-xmin_estim(csize.list)
 ##summary(c_xmin)
 
@@ -32,7 +32,7 @@ if(cdist.indi$percolation[1] == TRUE){
   c_xmin<-xmin_estim(csize.list)             ##Estimating Xmin using the new list of patchsizes
 }
 
-################PoweRlaw################
+################ Using PoweRlaw package to fit the distribution ################
 ########Select the list of cluster size
 cd=conpl$new(csize.list)
 ##summary(cd)
