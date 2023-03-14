@@ -18,6 +18,20 @@ t<-matrix(as.logical(s), dim(s))
 ########Produce a list of cluster sizes
 csize.list<-patchsizes(t)
 
+########      Find the xmin
+c_xmin<-xmin_estim(csize.list)
+##summary(c_xmin)
+
+########      Fits different distributionand gets back the AIC, BIC and AICc
+cdist.indi<-indicator_psdtype(t, xmin=c_xmin, fit_lnorm=TRUE)
+
+########      Trying to remove the percolation cluster
+if(cdist.indi$percolation[1] == TRUE){
+  d<-which(csize.list == max(csize.list))    ##Finding the largest cluster
+  csize.list<-csize.list[-d]                 ##Removing the largest cluster
+  c_xmin<-xmin_estim(csize.list)             ##Estimating Xmin using the new list of patchsizes
+}
+
 ################PoweRlaw################
 ########Select the list of cluster size
 cd=conpl$new(csize.list)
