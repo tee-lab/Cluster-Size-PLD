@@ -3,9 +3,9 @@
 PRODUCING BINARY RASTER FROM SATELLITE IMAGE
 
 In QGIS, produce an NDVI image using multispectral image. The NDVI image is compared with the greyscale image for more precise identification of vegetation. 
-A range of values are considered such that the lowest threshold indicates area with a mix of vegetation and bare ground, and the highest value indicates pixels that surely contain vegetation.
-A binary map is produced using each threshold, which is analysed in R.
-To obtain a map which shows the change in vegetation over years, we just need to subtract one map from the other.
+A range of values are considered such that the lowest value indicates area with a mix of vegetation and bare ground, and the highest value indicates pixels that surely contain vegetation. These values are used as threshold to identify vegetation.
+A binary map is produced using each threshold, which is analysed in R. In the binary map, a value of 1 would indicate vegetation and a value of 0 indicates barren land.
+To obtain a map which shows the change in vegetation over years, we just need to subtract one raster from the other. Such maps are called difference maps.
 
 ANALYSING CLUSTER SIZE DISTRIBUTION IN R
 
@@ -47,3 +47,10 @@ Can also use "displ" instead of "conpl" for discrete power law, "disexp" and "co
 "setXmin" and "setPars" are used to set the values to the distribution.
 
 "plot" and "line" to visualise the distribution
+
+
+FILES IN THE REPOSITORY
+
+1. Old Code : It contains older codes that can be used to produce power law distributions. It also has some binary rasters which can be used to run the codes.
+2. Cluster Size Distributions.R : It is an updated R script that can be used to get the power law distributions for different locations using a raster file.
+3. Difference maps.R : It is an R script that can be used to get the power law distributions for difference maps. It subtracts a layer of raster from the other to give the area of vegetation lost and gained over selected years. 
