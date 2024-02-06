@@ -65,14 +65,9 @@ lny<-lnpl$y                 ######## y of lnpl
 plot(lnx,lny)               ######## power law plot
 plot(log(lnx),log(lny))     ######## log-log plot
 
-########Fitted line 
-fit<-lm(y~ x ,)
-summary(fit)
-plot(fit)                   ########No idea what it showed
-
-################Checking consistency of dist################(Still need to figure out)
+################Checking consistency of dist################
 ######## produce random PLD with xmin and par
-newpl<- rpldis(ssize,xmin=1,alpha=2.097)
+newpl<- rpldis(ssize,xmin=1,alpha=xmin_cd$pars)
 
 cd1=conpl$new(newpl)
 cd1$getXmin()
@@ -90,7 +85,7 @@ xmin_cd1
 ##fit1<-lm(y~ x ,lnpl1)
 
 ######## produce second random PLD with xmin and par
-newpl2<- rpldis(ssize,xmin=1,alpha=2.0897)
+newpl2<- rpldis(ssize,xmin=1,alpha=xmin_cd1$pars)
 
 cd2=conpl$new(newpl2)
 cd2$getXmin()
@@ -106,7 +101,7 @@ plot(cd2, xlim= c(1,100000),ylim= c(0.00001,1), main="Sen12M30Random2",sub="Rand
 lnpl2<-lines(cd2)
 xmin_cd2
 ######## produce third random PLD with xmin and par
-newpl3<- rpldis(ssize,xmin=1,alpha=2.040117)
+newpl3<- rpldis(ssize,xmin=1,alpha=xmin_cd2$pars)
 
 cd3=conpl$new(newpl3)
 cd3$getXmin()
@@ -122,7 +117,7 @@ plot(cd3, xlim= c(1,100000),ylim= c(0.00001,1), main="Sen12M30Random3",sub="Rand
 lnpl3<-lines(cd3)
 xmin_cd3
 ######## produce fourth random PLD with xmin and par
-newpl4<- rpldis(ssize,xmin=1,alpha=2.007)
+newpl4<- rpldis(ssize,xmin=1,alpha=xmin_cd3$pars)
 
 cd4=conpl$new(newpl4)
 cd4$getXmin()
