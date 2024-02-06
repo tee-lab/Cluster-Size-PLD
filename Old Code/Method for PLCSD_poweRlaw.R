@@ -2,7 +2,7 @@ library(raster)
 library(poweRlaw)
 library(spatialwarnings)
 
-r <- raster('F:/Ashish/1.Part1prjct/Binary map/Senanga20_binary40.tif')
+r <- raster('file path')
 ##summary(r)
 
 ########Use a CSV file to get the data
