@@ -4,7 +4,7 @@ library(ggplot2)
 ################    Spatialwarnings     ################
 
 ########     Select the raster
-r <- raster('F:/Ashish/1.Part1prjct/Binary map/Senanga14_binary438.tif')
+r <- raster('file path')
 ##summary(r)
 
 ########     Use a CSV file to get the data
