@@ -3,37 +3,43 @@ library(spatialwarnings)
 library(poweRlaw)
 library(ggplot2)
 
-################Spatialwarnings################
-########Select the raster
+################ Spatialwarnings ################
+##  Select the raster
 setwd("A:/Work")
-r <- raster('Threshold/Sn12_NDVI_N.tif')
-s <- as.matrix(r)
+r <- raster('Threshold/Sn12_NDVI_N.tif')     # Selecting a Raster File
+s <- as.matrix(r)                            # Converting the raster into a matrix
 
-dups<-s
+dups<-s                                      # Making it binary such that
+s[dups<=0.68]<-1                             # any value above a threshold is 1
+s[dups>0.68]<-0                              # and below is zero
 
-s[dups<=0.68]<-1
-s[dups>0.68]<-0
-
-t<-matrix(as.logical(s), dim(s))
-cs<-patchsizes(t, nbmask = "moore")
-c_xmin<-xmin_estim(cs)
+t<-matrix(as.logical(s), dim(s))             # Converting the binary matrix to a logical matrix
+cs<-patchsizes(t, nbmask = "moore")          # To produce a list of cluster sizes , use 'nbmask="moore"' to specify use of moore neighbourhood to define cluster
+c_xmin<-xmin_estim(cs)                       # Estimate Xmin
 c_xmin
-
 ##summary(c_xmin)
-########Produce a inverse-cdf of cluster size
+
+##  Produce a inverse-cdf of cluster size
 cdist<- patchdistr_sews(t,xmin=c_xmin, fit_lnorm=TRUE, nbmask = "moore") ##Merge=TRUE uses all possible fits
 
+##  Plot the function
 cdistplot<- plot_distr(cdist, best_only = FALSE)
 
 svg(filename = "PLD/Moore/Individual/Sn/Sn12_NDVI_sw.svg", width = 950, height = 950, units = "px", pointsize = 55, res = 125)
 cdistplot
 dev.off()
 
+################ poweRlaw ################
+## Use the list of cluster sizes to produce  a cluster size distribution
 cd=conpl$new(cs)
-par_cd<-estimate_pars(cd)
+
+## Estimate parameters of distribution
+par_cd<-estimate_pars(cd)                     
 xmin_cd<-estimate_xmin(cd, xmax = max(cs))
 cd$setXmin(xmin_cd)
 xmin_cd
+
+## Plot the distribution
 x.name=c("Patchsize")
 y.name=c("P(X<x)")
 
@@ -43,8 +49,8 @@ lnpl<-lines(cd,col=3)
 legend("topright", legend=c("PlXmin = 1296", "PlExpo = 3.54"), cex=1)
 dev.off()
 
-#####
-
+################ Von neumann ################
+## Same as above, but did not specify the moore function, to produce cluster size distribution using Von Neumann neighbourhood
 t<-matrix(as.logical(s), dim(s))
 cs<-patchsizes(t)
 c_xmin<-xmin_estim(cs)
